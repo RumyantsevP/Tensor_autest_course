@@ -37,11 +37,3 @@ print(next(gen))
 print(next(gen))
 print(next(gen))
 print(next(gen))
-
-# Правильный генератор:
-# def my_range(start, end=None):
-#     if end is None:
-#         start, end = 0, start
-#     while start < end:
-#         yield start
-#         start += 1

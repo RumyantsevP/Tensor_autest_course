@@ -4,19 +4,20 @@
 # Нужно найти сумму трёх самых дорогих покупок, которые запишутся в переменную three_most_expensive_purchases
 
 # Здесь пишем код
-f = list(open(r'C:\Users\pn.rumyancev\Tensor_autotest_course\lection 9\test_file\task_3.txt', encoding='utf-8'))  # Кладем содержимое файла в переменную f в формате списка
-summa = 0
-a = []
-for i in f:  # Пробегаем по элементам списка
+with open(r'C:\Users\pn.rumyancev\Tensor_autotest_course\lection 9\test_file\task_3.txt', encoding='utf-8') as shopping_file:
+    shopping_strings = shopping_file.readlines()
+    summa = 0
+    buy_list = []
+for i in shopping_strings:  # Пробегаем по строкам покупок
     if i == '\n':
-        a.append(summa)
+        buy_list.append(summa)
         summa = 0
         continue
     else:
         summa += int(i)  # К сумме добавляем элемент списка, переведя элемент к целому числу
-a.append(summa)
-a = sorted(a, reverse=True)  # Отсортировываем список по убыванию
-three_most_expensive_purchases = a[0] + a[1] + a[2]  # Суммируем первые 3 первые элемента списка
+buy_list.append(summa)
+buy_list = sorted(buy_list, reverse=True)  # Отсортировываем список по убыванию
+three_most_expensive_purchases = buy_list[0] + buy_list[1] + buy_list[2]  # Суммируем первые 3 первые элемента списка
 
 
 assert three_most_expensive_purchases == 202346

@@ -30,31 +30,30 @@
 # help(func1) должен выводит одинаковый текст, когда есть декоратор на функции func1 и когда его нет
 # Реализовать без подключения новых модулей и сторонних библиотек.
 
-
-import datetime
-
 # Здесь пишем код
 import datetime
+import date
 
 def func_log(file_log='log.txt'):
     """ Декоратор с аргументом по умолчанию"""
     def my_decorator(func):
         def wrapper():
             func()
-        return func
+            with open(file_log, mode='a', encoding='utf-8') as function_time:
+                log_function_time = datetime.datetime.now().strftime("%d.%m %H:%M:%S")
+                log_for_function = f'{func.__name__} вызвана в {log_function_time}\n'
+                function_time.write(log_for_function)
+                wrapper.__name__ = func.__name__
+        return wrapper
     return my_decorator
 
-@func_log()  # Декоратор с принимаемым аргументом по умолчанию ("log.txt")
+@func_log()
 def func1():
-    for_first_function = open(r'C:\Users\pn.rumyancev\Tensor_autotest_course\lection 9\test_file\log.txt', mode='a', encoding='utf-8')  # Файл в режиме добавления
-    a = datetime.datetime.now()  # Получаем актуальные дата/время
-    for_first_function.write(f'{func1.__name__} вызвана {a.strftime("%d.%m %H:%M:%S")}\n')  # Добавляем в файл имя функции и выводим дату/время в требуемом формате
+    time.sleep(3)
 
-@func_log(file_log='func2.txt')  # Декоратор с принимаемым аргументом "func2.txt"
+@func_log(file_log='func2.txt')
 def func2():
-    for_second_function = open(r'C:\Users\pn.rumyancev\Tensor_autotest_course\lection 9\test_file\func2.txt', mode='a', encoding='utf-8')
-    a = datetime.datetime.now()
-    for_second_function.write(f'{func2.__name__} вызвана {a.strftime("%d.%m %H:%M:%S")}\n')
+    time.sleep(5)
 
 func1()
 func2()
